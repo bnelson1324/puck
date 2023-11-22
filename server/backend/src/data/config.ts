@@ -24,7 +24,7 @@ function writeConfig(path: string): void {
 }
 
 const defaultConfig: typeof config = {
-    'port': 3000,
+    'port': 4000,
     'mediaStoragePath': './mediaStorage',
 };
 

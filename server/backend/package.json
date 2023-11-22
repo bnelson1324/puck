@@ -21,6 +21,8 @@
     "sqlite3": "^5.1.6"
   },
   "scripts": {
-    "copyAssets": "cp src/data/schema.sql build/src/data/schema.sql"
+    "copyAssets": "npm run -s copySchema & npm run -s copyConfig",
+    "copySchema": "cp src/data/schema.sql build/src/data/schema.sql",
+    "copyConfig": "cp config.json build/config.json"
   }
 }

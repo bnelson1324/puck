@@ -16,7 +16,6 @@ function App() {
                         <div>
                             <input type={'submit'} value={'Add File to Media'}/>
                             <input type={'file'}/>
-
                         </div>
                     </div>
                     <div>

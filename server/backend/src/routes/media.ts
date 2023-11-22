@@ -12,6 +12,7 @@ router.route('/')
         try {
             res.json(await fetchMediaList());
         } catch (e) {
+            console.error(e);
             res.status(500).send(`Error fetching media list`);
         }
     })
@@ -25,6 +26,7 @@ router.route('/')
                 res.status(400).send(`Error: Media at path ${req.query.fileName} already exists`);
             }
         } catch (e) {
+            console.error(e);
             res.status(500).send(`Error inserting media at path: ${req.query.fileName}`);
         }
     });
@@ -36,6 +38,7 @@ router.route('/:id')
                 const media = await fetchMedia(req.params.id);
                 res.sendFile(media.fileName);
             } catch (e) {
+                console.error(e);
                 res.status(400).send(`Error finding file with id: ${req.params.id}`);
             }
         }

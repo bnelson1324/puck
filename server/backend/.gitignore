@@ -15,4 +15,3 @@ benchmarks/graphs
 .idea
 build
 config.json
-db.sqlite

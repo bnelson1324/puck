@@ -4,7 +4,8 @@ import axios from 'axios';
 export default function MediaDisplay() {
     async function getMediaList(): Promise<Media[]> {
         try {
-            return await axios.get(`media`);
+            const response = await axios.get(`media`);
+            return response.data;
         } catch (e) {
             alert(e);
             return [];

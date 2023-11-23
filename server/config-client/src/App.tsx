@@ -14,8 +14,17 @@ function App() {
                             <button>Scan Media Storage Folder For Unadded Media</button>
                         </div>
                         <div>
-                            <input type={'submit'} value={'Add File to Media'}/>
-                            <input type={'file'}/>
+                            <form action="/media" method="put">
+                                <label>
+                                    Name:
+                                    <input type={'text'}/>
+                                </label>
+                                <label>
+                                    File:
+                                    <input type={'file'}/>
+                                </label>
+                                <input type={'submit'} value={'Add File to Media'}/>
+                            </form>
                         </div>
                     </div>
                     <div>

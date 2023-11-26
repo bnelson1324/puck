@@ -65,7 +65,6 @@ async function mediaWithFilenameExists(fileName: string): Promise<boolean> {
         FROM media
         WHERE fileName == ?
     `, fileName);
-
     return res != undefined;
 }
 

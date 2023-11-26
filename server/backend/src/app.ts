@@ -13,7 +13,7 @@ async function start(): Promise<void> {
         config.mediaStoragePath :
         path.join(__dirname, config.mediaStoragePath)
     );
-    console.log('Database loaded');
+    console.log(`Media storage loaded at ${config.mediaStoragePath}`);
 
     const app = express();
     app.use('/media', media);

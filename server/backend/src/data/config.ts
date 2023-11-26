@@ -1,4 +1,6 @@
 import fs from 'fs';
+import path from 'path';
+import * as os from 'os';
 
 
 let config: {
@@ -25,7 +27,7 @@ function writeConfig(path: string): void {
 
 const defaultConfig: typeof config = {
     'port': 4000,
-    'mediaStoragePath': './mediaStorage',
+    'mediaStoragePath': path.join(os.homedir(), './mediaStorage'),
 };
 
 export {config, loadConfig, writeConfig};

@@ -1,6 +1,8 @@
 import fs, {PathLike} from 'fs';
 import formidable from 'formidable';
 import {fetchMediaWithFileName} from './database';
+import path from 'path';
+import {config} from './config';
 
 
 function downloadMediaFile(req: any, res: any, next: any, directory: string,
@@ -33,10 +35,14 @@ function downloadMediaFile(req: any, res: any, next: any, directory: string,
     });
 }
 
+function getMediaAbsolutePath(fileName: string) {
+    return path.join(config.mediaStoragePath, fileName);
+}
+
 async function scanForNewMedia(mediaStoragePath: string): Promise<string[]> {
     return fs.readdirSync(mediaStoragePath)
         .filter(path => !path.endsWith('.sqlite'))
         .filter(async path => await fetchMediaWithFileName(path) == undefined);
 }
 
-export {downloadMediaFile, scanForNewMedia};
+export {downloadMediaFile, getMediaAbsolutePath, scanForNewMedia};

@@ -1,6 +1,6 @@
 import express, {NextFunction} from 'express';
 import {addMediaWithFilename, fetchMedia, fetchMediaList, mediaWithFilenameExists} from '../data/database';
-import {downloadMediaFile, scanForNewMedia} from '../data/mediaStorage';
+import {downloadMediaFile, getMediaAbsolutePath, scanForNewMedia} from '../data/mediaStorage';
 import {config} from '../data/config';
 import fs from 'fs';
 import path from 'path';
@@ -23,7 +23,7 @@ router.route('/')
         try {
             downloadMediaFile(req, res, next, config.mediaStoragePath, async (fileName, oldPath, mediaName) => {
                 try {
-                    const newPath = path.join(config.mediaStoragePath, fileName);
+                    const newPath = getMediaAbsolutePath(fileName);
 
                     // check if file already exists
                     if (await mediaWithFilenameExists(fileName)) {

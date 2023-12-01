@@ -51,14 +51,14 @@ router.route('/')
     });
 
 router.route('/:id')
-    .get(async (req: any, res: any) => {
+    .get(async (req: any, res: any, next: NextFunction) => {
             // send file at id
             try {
                 const media = await fetchMedia(req.params.id);
-                res.sendFile(media.fileName);
+                res.sendFile(getMediaAbsolutePath(media.fileName));
             } catch (err) {
-                console.error(err);
-                res.status(400).send(`Error finding file with id: ${req.params.id}`);
+                await res.status(400).send(`Error finding file with id: ${req.params.id}`);
+                next(err);
             }
         }
     );

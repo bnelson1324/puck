@@ -27,7 +27,7 @@ function writeConfig(path: string): void {
 
 const defaultConfig: typeof config = {
     'port': 4000,
-    'mediaStoragePath': path.join(os.homedir(), './mediaStorage'),
+    'mediaStoragePath': path.join(os.homedir(), './puckMediaStorage'),
 };
 
 export {config, loadConfig, writeConfig};

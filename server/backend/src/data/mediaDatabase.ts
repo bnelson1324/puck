@@ -17,7 +17,7 @@ async function loadMediaStoragePath(mediaStoragePath: string): Promise<void> {
         filename: path.join(mediaStoragePath, 'puck-db.sqlite'),
         driver: sqlite3.Database,
     });
-    const schema = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
+    const schema = fs.readFileSync(path.join(__dirname, 'mediaSchema.sql'), 'utf8');
     await db.exec(schema);
 }
 

@@ -1,12 +1,13 @@
 import express, {NextFunction} from 'express';
-import {addMediaWithFilename, fetchMedia, fetchMediaList, mediaWithFilenameExists} from '../data/database';
+import fs from 'fs';
+import {addMediaWithFilename, fetchMedia, fetchMediaList, mediaWithFilenameExists} from '../data/mediaDatabase';
 import {downloadMediaFile, getMediaAbsolutePath, scanForNewMedia} from '../data/mediaStorage';
 import {config} from '../data/config';
-import fs from 'fs';
-import path from 'path';
+import {authenticate} from '../data/auth';
 
 
 const router = express.Router();
+router.use(authenticate);
 
 router.route('/')
     .get(async (req: any, res: any, next: NextFunction) => {
@@ -28,7 +29,7 @@ router.route('/')
                     // check if file already exists
                     if (await mediaWithFilenameExists(fileName)) {
                         fs.rmSync(oldPath);
-                        await res.status(500).send(`File at ${newPath} already exists in database`);
+                        await res.status(400).send(`File at ${newPath} already exists in database`);
                         return;
                     }
 
@@ -69,4 +70,4 @@ router.route('/scan')
         return await scanForNewMedia(config.mediaStoragePath);
     });
 
-export = router;
+export {router};

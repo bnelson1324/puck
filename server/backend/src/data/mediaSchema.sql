@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS media (
 	fileName TEXT NOT NULL,
 	name TEXT NOT NULL,
 	timeAdded INTEGER NOT NULL
-)
+);

@@ -1,6 +1,6 @@
 import fs, {PathLike} from 'fs';
 import formidable from 'formidable';
-import {fetchMediaWithFileName} from './database';
+import {fetchMediaWithFileName} from './mediaDatabase';
 import path from 'path';
 import {config} from './config';
 
@@ -14,18 +14,15 @@ function downloadMediaFile(req: any, res: any, next: any, directory: string,
     });
     form.parse(req, async (err, fields, files) => {
         if (err) {
-            next(err);
-            return;
+            return next(err);
         }
 
         if (!fields.name) {
-            next(new Error('Request does not provide name'));
-            return;
+            return next(new Error('Request does not provide name'));
         }
 
         if (!files.file || files.file.length == 0) {
-            next(new Error('Request does not provide file'));
-            return;
+            return next(new Error('Request does not provide file'));
         }
 
         const file = files.file[0];

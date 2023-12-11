@@ -7,7 +7,7 @@ import {logoutAllUsers} from './login';
 const router = express.Router();
 
 router.route('/')
-    .put(authenticateLocalhost, async (req, res) => {
+    .put(authenticateLocalhost, async (req: any, res: any) => {
         config.hashedPassword = await hashPassword(req.body.password);
         writeConfig();
         res.status(200).send('Password changed, all active sessions logged out');

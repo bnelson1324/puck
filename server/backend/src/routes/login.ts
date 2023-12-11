@@ -6,7 +6,7 @@ import {config, writeConfig} from '../data/config';
 const router = express.Router();
 
 router.route('/')
-    .post(async (req, res) => {
+    .post(async (req: any, res: any) => {
         // log in
         if (await comparePassword(req.body.password)) {
             res.status(200).json(generateJWT());

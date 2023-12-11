@@ -7,6 +7,11 @@ import fs from 'fs';
 let db: Database;
 
 async function loadMediaStoragePath(mediaStoragePath: string): Promise<void> {
+    // make mediaStoragePath absolute
+    mediaStoragePath = path.isAbsolute(mediaStoragePath) ?
+        mediaStoragePath :
+        path.join(__dirname, '../..', mediaStoragePath);
+
     // if mediaStoragePath doesn't exist, then create it
     if (!fs.existsSync(mediaStoragePath)) {
         fs.mkdirSync(mediaStoragePath);

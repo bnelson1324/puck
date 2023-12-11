@@ -6,16 +6,14 @@ import {loadMediaStoragePath} from './data/mediaDatabase';
 import {router as mediaRouter} from './routes/media';
 import {router as passwordRouter} from './routes/password';
 import {router as loginRouter} from './routes/login';
+import {router as mediaStoragePathRouter} from './routes/mediaStoragePath';
 
 
 async function start(): Promise<void> {
     loadConfig(path.join(__dirname, '../config.json'));
     console.log('Config loaded');
 
-    await loadMediaStoragePath(path.isAbsolute(config.mediaStoragePath) ?
-        config.mediaStoragePath :
-        path.join(__dirname, config.mediaStoragePath)
-    );
+    await loadMediaStoragePath(config.mediaStoragePath)
     console.log(`Media storage loaded at ${config.mediaStoragePath}`);
 
     const app = express();
@@ -26,6 +24,8 @@ async function start(): Promise<void> {
     app.use('/media', mediaRouter);
     app.use('/password', passwordRouter);
     app.use('/login', loginRouter);
+    app.use('/mediaStoragePath', mediaStoragePathRouter);
+
 
     app.listen(config.port);
     console.log(`Server ready, listening on port ${config.port}...`);

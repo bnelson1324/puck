@@ -1,7 +1,7 @@
 import express, {NextFunction} from 'express';
 import fs from 'fs';
 import {addMediaWithFilename, fetchMedia, fetchMediaList, mediaWithFilenameExists} from '../data/mediaDatabase';
-import {downloadMediaFile, getMediaAbsolutePath, scanForNewMedia} from '../data/mediaStorage';
+import {deleteMedia, downloadMediaFile, getMediaAbsolutePath, scanForNewMedia} from '../data/mediaStorage';
 import {config} from '../data/config';
 import {authenticate} from '../data/auth';
 
@@ -46,23 +46,30 @@ router.route('/')
                 }
             });
         } catch (err) {
-            await res.status(500).send(`Error uploading file to server`);
-            next(err);
+            res.status(500).send(`Error uploading file to server`);
         }
     });
 
 router.route('/:id')
     .get(async (req: any, res: any, next: NextFunction) => {
-            // send file at id
+            // send file with id
             try {
                 const media = await fetchMedia(req.params.id);
                 res.sendFile(getMediaAbsolutePath(media.fileName));
             } catch (err) {
-                await res.status(400).send(`Error finding file with id: ${req.params.id}`);
-                next(err);
+                res.status(400).send(`Error finding file with id: ${req.params.id}`);
             }
         }
-    );
+    )
+    .delete(async (req: any, res: any, next: NextFunction) => {
+        // delete file with id
+        try {
+            await deleteMedia(req.params.id);
+            res.send('File deleted successfully');
+        } catch (err) {
+            res.status(400).send(`Error deleting file with id: ${req.params.id}`);
+        }
+    });
 
 router.route('/scan')
     .put(async (req: any, res: any) => {

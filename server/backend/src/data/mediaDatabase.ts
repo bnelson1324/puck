@@ -7,11 +7,6 @@ import fs from 'fs';
 let db: Database;
 
 async function loadMediaStoragePath(mediaStoragePath: string): Promise<void> {
-    // make mediaStoragePath absolute
-    mediaStoragePath = path.isAbsolute(mediaStoragePath) ?
-        mediaStoragePath :
-        path.join(__dirname, '../..', mediaStoragePath);
-
     // if mediaStoragePath doesn't exist, then create it
     if (!fs.existsSync(mediaStoragePath)) {
         fs.mkdirSync(mediaStoragePath);
@@ -64,6 +59,14 @@ async function fetchMediaWithFileName(fileName: string): Promise<Media> {
     return res;
 }
 
+async function deleteMediaEntry(id: number) {
+    await db.run(`
+        DELETE
+        FROM media
+        WHERE id == ?
+    `, id);
+}
+
 async function mediaWithFilenameExists(fileName: string): Promise<boolean> {
     const res = await db.get(`
         SELECT id, fileName, name
@@ -87,6 +90,7 @@ export {
     fetchMediaList,
     fetchMedia,
     fetchMediaWithFileName,
+    deleteMediaEntry,
     mediaWithFilenameExists,
     addMediaWithFilename
 };

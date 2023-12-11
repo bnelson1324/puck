@@ -1,6 +1,6 @@
 import fs, {PathLike} from 'fs';
 import formidable from 'formidable';
-import {fetchMediaWithFileName} from './mediaDatabase';
+import {deleteMediaEntry, fetchMedia, fetchMediaWithFileName} from './mediaDatabase';
 import path from 'path';
 import {config} from './config';
 
@@ -32,6 +32,12 @@ function downloadMediaFile(req: any, res: any, next: any, directory: string,
     });
 }
 
+async function deleteMedia(id: number) {
+    const media = await fetchMedia(id);
+    await deleteMediaEntry(id);
+    fs.rmSync(getMediaAbsolutePath(media.fileName));
+}
+
 function getMediaAbsolutePath(fileName: string) {
     return path.join(config.mediaStoragePath, fileName);
 }
@@ -42,4 +48,9 @@ async function scanForNewMedia(mediaStoragePath: string): Promise<string[]> {
         .filter(async path => await fetchMediaWithFileName(path) == undefined);
 }
 
-export {downloadMediaFile, getMediaAbsolutePath, scanForNewMedia};
+export {
+    downloadMediaFile,
+    deleteMedia,
+    getMediaAbsolutePath,
+    scanForNewMedia
+};

@@ -32,5 +32,13 @@ button, input {
 }
 
 #mediaDisplay {
-    border: 5px white solid
+    margin: 10px 10px 10px 200px;
+    padding: 10px;
+    border: 4px white solid;
+    display: block;
+    height: min-content;
+}
+
+#mediaDisplay td {
+    padding: 6px
 }

@@ -19,7 +19,7 @@ router.route('/')
             next(err);
         }
     })
-    .put(async (req: any, res: any, next: NextFunction) => {
+    .post(async (req: any, res: any, next: NextFunction) => {
         // download file from request
         try {
             downloadMediaFile(req, res, next, config.mediaStoragePath, async (fileName, oldPath, mediaName) => {

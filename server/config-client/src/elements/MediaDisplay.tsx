@@ -1,6 +1,6 @@
 import Media from '../types/media';
 
-export default function MediaDisplay(props: { mediaList: Media[] }) {
+export default function MediaDisplay(props: { mediaList: Media[], deleteMedia: (id: number) => void }) {
     return (
         <table id={'mediaDisplay'}>
             <thead>
@@ -11,11 +11,14 @@ export default function MediaDisplay(props: { mediaList: Media[] }) {
             </tr>
             </thead>
             {props.mediaList.map(media => (
-                <tbody>
+                <tbody key={media.id}>
                 <tr>
                     <td>{media.id}</td>
                     <td>{media.name}</td>
                     <td>{media.fileName}</td>
+                    <td>
+                        <button onClick={() => props.deleteMedia(media.id)}>X</button>
+                    </td>
                 </tr>
                 </tbody>
             ))}

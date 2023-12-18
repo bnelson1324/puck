@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import Media from './types/media';
 import UploadMediaForm from './elements/UploadMediaForm';
+import RequestButton from './elements/RequestButton';
 
 function App() {
     async function refreshMediaList() {
@@ -48,9 +49,10 @@ function App() {
                     </div>
                     <div>
                         <div>
-                            <button>Set Password</button>
-                            <input type={'password'}/>
+                            <RequestButton buttonText={'Set Password'} action={'PUT'} url={'/password'}
+                                           inputType={'password'} inputName={'password'}/>
                         </div>
+
                         <div>
                             <button>Set Media Storage Folder</button>
                             <input type={'text'}/>

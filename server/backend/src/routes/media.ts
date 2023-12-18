@@ -50,6 +50,22 @@ router.route('/')
         }
     });
 
+router.route('/add/:fileName')
+    .put(async (req: any, res: any) => {
+            // add file at filename to database
+            const fileName = req.params.fileName;
+            if (fs.existsSync(fileName)) {
+                return res.status(400).send(`No file with name ${fileName} found`);
+            }
+            if (await mediaWithFilenameExists(fileName)) {
+                return await res.status(400).send(`File with name ${fileName} already exists in database`);
+            }
+
+            await addMediaWithFilename(fileName, req.body.name);
+            await res.status(200).send(`Successfully added file ${fileName} to database`)
+        }
+    );
+
 router.route('/:id')
     .get(async (req: any, res: any, next: NextFunction) => {
             // send file with id
@@ -74,7 +90,7 @@ router.route('/:id')
 router.route('/scan')
     .put(async (req: any, res: any) => {
         // return filenames of unadded media
-        return await scanForNewMedia(config.mediaStoragePath);
+        return await res.status(200).send(await scanForNewMedia(config.mediaStoragePath));
     });
 
 export {router};

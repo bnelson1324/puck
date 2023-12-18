@@ -5,6 +5,7 @@ import axios from 'axios';
 import Media from './types/media';
 import UploadMediaForm from './elements/UploadMediaForm';
 import RequestButton from './elements/RequestButton';
+import ScanMediaButton from './elements/ScanMediaButton';
 
 function App() {
     async function refreshMediaList() {
@@ -41,7 +42,7 @@ function App() {
                     <div>
                         <button onClick={refreshMediaList}>Refresh Media List</button>
                         <div>
-                            <button>Scan Media Storage Folder For Unadded Media</button>
+                            <ScanMediaButton refreshMedia={refreshMediaList}/>
                         </div>
                         <div>
                             <UploadMediaForm refreshMedia={refreshMediaList}/>

@@ -1,6 +1,6 @@
 import fs, {PathLike} from 'fs';
 import formidable from 'formidable';
-import {deleteMediaEntry, fetchMedia, fetchMediaWithFileName} from './mediaDatabase';
+import {deleteMediaEntry, fetchMedia, mediaWithFilenameExists} from './mediaDatabase';
 import path from 'path';
 import {config} from './config';
 
@@ -43,9 +43,13 @@ function getMediaAbsolutePath(fileName: string) {
 }
 
 async function scanForNewMedia(mediaStoragePath: string): Promise<string[]> {
-    return fs.readdirSync(mediaStoragePath)
-        .filter(path => !path.endsWith('.sqlite'))
-        .filter(async path => await fetchMediaWithFileName(path) == undefined);
+    const res: string[] = [];
+    for (const fileName of fs.readdirSync(mediaStoragePath)) {
+        if (!fileName.endsWith('.sqlite') && !await mediaWithFilenameExists(fileName)) {
+            res.push(fileName);
+        }
+    }
+    return res;
 }
 
 export {

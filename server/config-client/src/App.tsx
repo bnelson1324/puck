@@ -51,12 +51,15 @@ function App() {
                     <div>
                         <div>
                             <RequestButton buttonText={'Set Password'} action={'PUT'} url={'/password'}
-                                           inputType={'password'} inputName={'password'}/>
+                                           inputType={'password'} inputName={'password'} getDefaultInputVal={null}
+                                           refreshMedia={refreshMediaList}/>
                         </div>
 
                         <div>
-                            <button>Set Media Storage Folder</button>
-                            <input type={'text'}/>
+                            <RequestButton buttonText={'Set Media Storage Folder'} action={'PUT'}
+                                           url={'/mediaStoragePath'} inputType={'text'} inputName={'mediaStoragePath'}
+                                           getDefaultInputVal={async () => (await axios.get('/mediaStoragePath')).data}
+                                           refreshMedia={refreshMediaList}/>
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,14 @@
 import axios from 'axios';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export default function RequestButton(props: {
-    buttonText: string
+    buttonText: string,
     action: string,
     url: string,
     inputType: string,
     inputName: string,
+    getDefaultInputVal: (() => Promise<string>) | null,
+    refreshMedia: () => void
 }) {
     async function sendRequest() {
         const options = {
@@ -20,15 +22,29 @@ export default function RequestButton(props: {
                 alert(error.message);
             }
         );
-        alert('Successful request')
+
+        props.refreshMedia();
+        alert('Successful request');
     }
 
     const [inputVal, setInputVal]: [string, any] = useState('');
 
+    useEffect(() => {
+        async function setDefaultInputVal() {
+            if (props.getDefaultInputVal == null)
+                return;
+            setInputVal(await props.getDefaultInputVal());
+        }
+
+        setDefaultInputVal();
+    }, []);
+
     return (
         <>
             <button onClick={() => sendRequest()}>{props.buttonText}</button>
-            <input type={props.inputType} value={inputVal} onChange={(e) => setInputVal(e.target.value)}/>
+            <input className={'requestButtonInput'} type={props.inputType} value={inputVal}
+                   onChange={(e) => setInputVal(e.target.value)}
+            />
         </>
     );
 }

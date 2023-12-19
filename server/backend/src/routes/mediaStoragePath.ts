@@ -9,13 +9,13 @@ router.use(authenticate);
 
 router.route('/')
     .get((req: any, res: any) => {
-        res.send(config.mediaStoragePath);
+        res.status(200).send(config.mediaStoragePath);
     })
     .put(async (req: any, res: any) => {
         config.mediaStoragePath = req.body.mediaStoragePath;
         writeConfig();
         await loadMediaStoragePath(config.mediaStoragePath);
-        res.send('Media storage path set');
+        res.status(200).send('Media storage path set');
     });
 
 export {router};

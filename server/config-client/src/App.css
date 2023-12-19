@@ -26,6 +26,10 @@ button, input {
     background-color: #323232;
 }
 
+.requestButtonInput {
+    min-width: 400px
+}
+
 /* specific elements */
 #toolbar {
     height: 70vh;

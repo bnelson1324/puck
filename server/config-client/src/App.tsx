@@ -9,22 +9,22 @@ import ScanMediaButton from './elements/ScanMediaButton';
 
 function App() {
     async function refreshMediaList() {
-        try {
-            const response = await axios.get(`media`);
+        const response = await axios.get(`media`)
+            .catch(function (error) {
+                alert(`${error.message}: ${error.response.data}`);
+            });
+        if (response != null) {
             const mediaList = response.data;
             setMediaList(mediaList);
-        } catch (e) {
-            alert(e);
         }
     }
 
     async function removeMedia(id: number) {
-        try {
-            await axios.delete(`media/${id}`);
-            await refreshMediaList();
-        } catch (e) {
-            alert(e);
-        }
+        await axios.delete(`media/${id}`)
+            .catch(function (error) {
+                alert(`${error.message}: ${error.response.data}`);
+            });
+        await refreshMediaList();
     }
 
     const [mediaList, setMediaList]: [Media[], any] = useState([]);

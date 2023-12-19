@@ -25,7 +25,7 @@ export default function ScanMediaButton(props: { refreshMedia: () => void }) {
             };
             requests.push(axios.request(options).catch(
                 function (error) {
-                    alert(error.message);
+                    alert(`${error.message}: ${error.response.data}`);
                 }
             ));
         }

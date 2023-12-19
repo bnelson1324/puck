@@ -19,7 +19,7 @@ export default function RequestButton(props: {
         };
         await axios.request(options).catch(
             function (error) {
-                alert(error.message);
+                alert(`${error.message}: ${error.response.data}`);
             }
         );
 

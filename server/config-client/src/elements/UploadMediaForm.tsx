@@ -18,7 +18,7 @@ export default function UploadMediaForm(props: { refreshMedia: () => void }) {
             }
         }).catch(
             function (error) {
-                alert(error.message);
+                alert(`${error.message}: ${error.response.data}`);
             }
         );
         props.refreshMedia();

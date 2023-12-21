@@ -30,6 +30,6 @@
   "scripts": {
     "copyAssets": "yarn run -s copyMediaSchema & npm run -s deleteConfig",
     "copyMediaSchema": "cp src/data/mediaSchema.sql build/src/data/mediaSchema.sql",
-    "deleteConfig": "rm build/config.json"
+    "deleteConfig": "rm -f build/config.json"
   }
 }

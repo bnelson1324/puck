@@ -13,7 +13,7 @@ async function start(): Promise<void> {
     loadConfig(path.join(__dirname, '../config.json'));
     console.log('Config loaded');
 
-    await loadMediaStoragePath(config.mediaStoragePath)
+    await loadMediaStoragePath(config.mediaStoragePath);
     console.log(`Media storage loaded at ${config.mediaStoragePath}`);
 
     const app = express();
@@ -26,6 +26,10 @@ async function start(): Promise<void> {
     app.use('/login', loginRouter);
     app.use('/mediaStoragePath', mediaStoragePathRouter);
 
+    app.use(express.static(path.join(__dirname, '..', 'static')));
+    app.get('/', (req: any, res: any) => {
+        res.sendFile(path.join(__dirname, '..', 'static', 'index.html'));
+    });
 
     app.listen(config.port);
     console.log(`Server ready, listening on port ${config.port}...`);

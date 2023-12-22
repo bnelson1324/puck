@@ -43,7 +43,7 @@ class LoginModel : ViewModel() {
             val accessToken: String = response.body()!!
             with(getSessionPrefs(ctx).edit()) {
                 putString(prefServerAddressKey, serverAddress)
-                putString(prefAccessTokenKey, accessToken)
+                putString(prefAccessTokenKey, "\"$accessToken\"")
                 commit()
             }
         }

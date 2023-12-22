@@ -6,10 +6,7 @@ import qds.puck.config.serverAddressPort
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 fun createApi(
     serverAddress: String,
@@ -28,7 +25,7 @@ fun createApi(
         .addInterceptor(ErrorInterceptor(onError, errorMessages, logout))
 
     return Retrofit.Builder().client(httpClientBuilder.build())
-        .baseUrl("https://$serverAddress:$serverAddressPort")
+        .baseUrl("http://$serverAddress:$serverAddressPort")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(PuckApi::class.java)
@@ -36,9 +33,10 @@ fun createApi(
 
 interface PuckApi {
 
+    @FormUrlEncoded
     @POST("/login")
     suspend fun postLogin(
-        @Body password: String
+        @Field("password") password: String
     ): Response<String>
 
     @GET("/media")

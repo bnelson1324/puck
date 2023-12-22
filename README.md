@@ -3,7 +3,17 @@
  <b>Lightweight, user-friendly Android application and media server for reading and organizing your comics/manga. </b>  
 </p>
 
-<hr/>
+<hr>
+
+<h3>Dependencies</h3>
+
+<ul>
+    <li>Node.js</li>
+    <li>Yarn package manager</li>
+    <li>TypeScript</li>
+</ul>
+
+<hr>
 
 <h3>Build and run the server</h3>
 

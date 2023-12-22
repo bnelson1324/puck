@@ -15,7 +15,11 @@ import qds.puck.api.PuckApi
 import qds.puck.mediadisplay.MediaDisplayModel
 
 @Composable
-fun MediaCollection(puckApi: PuckApi?, navigateTo: (String) -> Unit, modifier: Modifier = Modifier) {
+fun MediaCollection(
+    puckApi: PuckApi?,
+    navigateTo: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val mediaCollectionModel: MediaCollectionModel = viewModel()
 
     if (puckApi == null) {
@@ -32,7 +36,10 @@ fun MediaCollection(puckApi: PuckApi?, navigateTo: (String) -> Unit, modifier: M
         val mediaDisplayModel: MediaDisplayModel = viewModel()
         val ctx = LocalContext.current
         LazyVerticalGrid(GridCells.Fixed(2)) {
-            items(mediaCollectionModel.mediaItems) { mediaItem ->
+            items(
+                items = mediaCollectionModel.mediaItems,
+                key = { mediaItem -> mediaItem.id }
+            ) { mediaItem ->
                 val onClick: () -> Unit = {
                     mediaDisplayModel.setCurrentMediaItem(puckApi, ctx, mediaItem.id)
                     navigateTo("reader")

@@ -23,7 +23,8 @@ class MediaDisplayModel : ViewModel() {
 
     /* state */
     // the id of the comic
-    private var currentMedia: MediaItem? = null
+    var currentMedia: MediaItem? = null
+        private set
 
     var currentPageIndex: Int = 0
         private set

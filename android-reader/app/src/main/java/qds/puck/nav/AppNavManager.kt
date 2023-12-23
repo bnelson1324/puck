@@ -15,6 +15,7 @@ import qds.puck.login.LoginModel
 import qds.puck.login.LoginScreen
 import qds.puck.mediacollection.MediaCollection
 import qds.puck.mediadisplay.MediaDisplay
+import qds.puck.mediadisplay.MediaDisplayModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +58,12 @@ fun AppNavManager(onError: (String?) -> Unit, modifier: Modifier = Modifier) {
                 MediaCollection(loginModel.puckApi, navigateTo, viewModelStoreOwner)
             }
             composable("reader") {
-                MediaDisplay(loginModel.puckApi, navigateTo, viewModelStoreOwner)
+                val mediaDisplayModel: MediaDisplayModel = viewModel(viewModelStoreOwner)
+                if (mediaDisplayModel.currentMedia != null) {
+                    MediaDisplay(loginModel.puckApi, navigateTo, viewModelStoreOwner)
+                } else {
+                    navigateTo("mediaCollection")
+                }
             }
             composable("login") {
                 LoginScreen(onError, viewModelStoreOwner)

@@ -53,7 +53,7 @@ fun MediaDisplay(
 
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.height(24.dp)
+            modifier = Modifier.height(36.dp)
         ) {
             Button(
                 onClick = { mediaDisplayModel.changeCurrentPageIndex(puckApi, ctx, -1) },

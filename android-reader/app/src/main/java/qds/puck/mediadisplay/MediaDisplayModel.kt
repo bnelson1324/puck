@@ -41,12 +41,11 @@ class MediaDisplayModel : ViewModel() {
 
 
     /* functions */
-    fun setCurrentMediaItem(puckApi: PuckApi, ctx: Context, mediaItem: MediaItem) = viewModelScope.launch {
+    suspend fun setCurrentMediaItem(puckApi: PuckApi, ctx: Context, mediaItem: MediaItem) {
         currentMedia = mediaItem
         fetchCurrentDirectoryIfNotCached(puckApi, ctx)
 
         currentPageIndex = 0
-
         loadCurrentImage(ctx)
     }
 

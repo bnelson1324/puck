@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.math.MathUtils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -51,9 +52,9 @@ class MediaDisplayModel : ViewModel() {
     }
 
     fun changeCurrentPageIndex(puckApi: PuckApi, ctx: Context, pageAmount: Int) = viewModelScope.launch {
-        // change currentPageIndex and currentCbzIndex
+        // change currentPageIndex
         if (currentImagePath != null) {
-            currentPageIndex += pageAmount
+            currentPageIndex = MathUtils.clamp(currentPageIndex + pageAmount, 0, getCurrentCbzSize(ctx) - 1)
 
             // load current image
             loadCurrentImage(ctx)

@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -44,6 +45,7 @@ fun AppNavManager(onError: (String?) -> Unit, modifier: Modifier = Modifier) {
         },
         modifier = modifier
     ) { innerPadding ->
+        val viewModelStoreOwner = LocalViewModelStoreOwner.current!!
         NavHost(
             navController = navController,
             startDestination = "login",
@@ -52,13 +54,13 @@ fun AppNavManager(onError: (String?) -> Unit, modifier: Modifier = Modifier) {
                 .fillMaxSize()
         ) {
             composable("mediaCollection") {
-                MediaCollection(loginModel.puckApi, navigateTo)
+                MediaCollection(loginModel.puckApi, navigateTo, viewModelStoreOwner)
             }
             composable("reader") {
-                MediaDisplay(loginModel.puckApi, navigateTo)
+                MediaDisplay(loginModel.puckApi, navigateTo, viewModelStoreOwner)
             }
             composable("login") {
-                LoginScreen(onError)
+                LoginScreen(onError, viewModelStoreOwner)
             }
         }
     }

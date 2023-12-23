@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import qds.puck.api.PuckApi
 import qds.puck.mediadisplay.MediaDisplayModel
@@ -19,9 +20,10 @@ import qds.puck.mediadisplay.MediaDisplayModel
 fun MediaCollection(
     puckApi: PuckApi?,
     navigateTo: (String) -> Unit,
+    viewModelStoreOwner: ViewModelStoreOwner,
     modifier: Modifier = Modifier
 ) {
-    val mediaCollectionModel: MediaCollectionModel = viewModel()
+    val mediaCollectionModel: MediaCollectionModel = viewModel(viewModelStoreOwner)
 
     if (puckApi == null) {
         navigateTo("login")
@@ -38,7 +40,7 @@ fun MediaCollection(
         }
 
         // display media cards
-        val mediaDisplayModel: MediaDisplayModel = viewModel()
+        val mediaDisplayModel: MediaDisplayModel = viewModel(viewModelStoreOwner)
         val ctx = LocalContext.current
         LazyVerticalGrid(GridCells.Fixed(2)) {
             items(

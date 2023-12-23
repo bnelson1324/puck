@@ -1,5 +1,6 @@
 package qds.puck.mediadisplay
 
+import android.app.Fragment
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
@@ -10,10 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import qds.puck.api.PuckApi
@@ -24,9 +27,10 @@ import kotlin.io.path.name
 fun MediaDisplay(
     puckApi: PuckApi?,
     navigateTo: (String) -> Unit,
-    modifier: Modifier = Modifier
+    viewModelStoreOwner: ViewModelStoreOwner,
+    modifier: Modifier = Modifier,
 ) {
-    val mediaDisplayModel: MediaDisplayModel = viewModel()
+    val mediaDisplayModel: MediaDisplayModel = viewModel(viewModelStoreOwner)
     val ctx = LocalContext.current
 
     if (puckApi == null) {

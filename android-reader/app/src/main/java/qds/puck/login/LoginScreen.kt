@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import qds.puck.R
 import qds.puck.api.ErrorMessages
@@ -24,10 +25,11 @@ import qds.puck.config.serverAddressPort
 @Composable
 fun LoginScreen(
     onError: (String?) -> Unit,
+    viewModelStoreOwner: ViewModelStoreOwner,
     modifier: Modifier = Modifier
 ) {
 
-    val loginModel: LoginModel = viewModel()
+    val loginModel: LoginModel = viewModel(viewModelStoreOwner)
     val ctx = LocalContext.current
     loginModel.onError = onError
     loginModel.errorMessages = getErrorMessages()

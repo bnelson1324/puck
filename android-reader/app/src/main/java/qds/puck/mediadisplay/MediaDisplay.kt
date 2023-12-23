@@ -1,18 +1,17 @@
 package qds.puck.mediadisplay
 
-import android.app.Fragment
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -39,7 +38,9 @@ fun MediaDisplay(
     }
 
     Column(
-        modifier = modifier
+        verticalArrangement = Arrangement.SpaceAround,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.fillMaxSize(),
     ) {
         if (mediaDisplayModel.currentImagePath != null) {
             val imgPath = mediaDisplayModel.currentImagePath!!.absolutePathString()
@@ -47,13 +48,14 @@ fun MediaDisplay(
             Image(
                 painter = rememberAsyncImagePainter(imgBitmap),
                 contentDescription = mediaDisplayModel.currentImagePath!!.name,
-                modifier = Modifier.testTag("imageDisplay")
+                modifier = Modifier.fillMaxWidth().border(BorderStroke(2.dp, Color.Black)).testTag("imageDisplay")
             )
         }
 
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.height(36.dp)
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(12.dp).fillMaxWidth().height(36.dp)
         ) {
             Button(
                 onClick = { mediaDisplayModel.changeCurrentPageIndex(puckApi, ctx, -1) },
@@ -63,7 +65,7 @@ fun MediaDisplay(
             }
             Text(
                 text = "${mediaDisplayModel.currentPageIndex + 1} / ${mediaDisplayModel.getCurrentCbzSize(ctx)}",
-                modifier = Modifier.testTag("pageCount")
+                modifier = Modifier.padding(12.dp, 0.dp).testTag("pageCount")
             )
             Button(
                 onClick = { mediaDisplayModel.changeCurrentPageIndex(puckApi, ctx, 1) },

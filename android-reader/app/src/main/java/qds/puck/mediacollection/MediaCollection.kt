@@ -46,7 +46,7 @@ fun MediaCollection(
                 key = { mediaItem -> mediaItem.id }
             ) { mediaItem ->
                 val onClick: () -> Unit = {
-                    mediaDisplayModel.setCurrentMediaItem(puckApi, ctx, mediaItem.id)
+                    mediaDisplayModel.setCurrentMediaItem(puckApi, ctx, mediaItem)
                     navigateTo("reader")
                 }
                 MediaCard(puckApi, mediaItem, onClick)

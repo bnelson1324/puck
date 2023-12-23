@@ -42,15 +42,9 @@ interface PuckApi {
     @GET("/media")
     suspend fun getMediaItemList(): Response<List<MediaItem>>
 
-    @GET("/media/{id}")
-    suspend fun getMediaFileList(
-        @Path("id") id: Int
-    ): Response<List<String>>
-
-    @GET("media/{id}/{file}")
+    @GET("media/{id}")
     suspend fun getMediaFile(
         @Path("id") id: Int,
-        @Path("file") file: String
     ): Response<ResponseBody>
 
 }

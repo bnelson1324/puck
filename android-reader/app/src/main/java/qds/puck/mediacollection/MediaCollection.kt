@@ -1,8 +1,7 @@
 package qds.puck.mediacollection
 
 import MediaCard
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -34,6 +33,8 @@ fun MediaCollection(
         return
     }
 
+    val ctx = LocalContext.current
+
     LaunchedEffect(true) {
         mediaCollectionModel.updateMediaList(puckApi)
     }
@@ -41,11 +42,24 @@ fun MediaCollection(
     Column(
         modifier = modifier
     ) {
-        Button(
-            onClick = { mediaCollectionModel.updateMediaList(puckApi) },
-            modifier = modifier.padding(12.dp, 6.dp)
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Refresh")
+            Button(
+                onClick = { ctx.cacheDir.deleteRecursively() },
+                modifier = modifier.padding(12.dp, 6.dp)
+            ) {
+                Text("Clear Cache")
+            }
+
+            Button(
+                onClick = { mediaCollectionModel.updateMediaList(puckApi) },
+                modifier = modifier.padding(12.dp, 6.dp)
+            ) {
+                Text("Refresh")
+            }
         }
 
         // display media cards

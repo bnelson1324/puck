@@ -2,6 +2,7 @@ package qds.puck.mediacollection
 
 import MediaCard
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -12,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
@@ -36,8 +38,13 @@ fun MediaCollection(
         mediaCollectionModel.updateMediaList(puckApi)
     }
 
-    Column(modifier = modifier) {
-        Button(onClick = { mediaCollectionModel.updateMediaList(puckApi) }) {
+    Column(
+        modifier = modifier
+    ) {
+        Button(
+            onClick = { mediaCollectionModel.updateMediaList(puckApi) },
+            modifier = modifier.padding(12.dp, 6.dp)
+        ) {
             Text("Refresh")
         }
 

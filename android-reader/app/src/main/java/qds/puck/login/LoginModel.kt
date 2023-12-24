@@ -59,7 +59,9 @@ class LoginModel : ViewModel() {
         }
     }
 
-    fun logout(ctx: Context) {
+    fun logout(ctx: Context) = viewModelScope.launch {
+        puckApi!!.logout()
+
         puckApi = null
         displayServerAddress = null
 
@@ -69,8 +71,6 @@ class LoginModel : ViewModel() {
             remove(prefAccessTokenKey)
             commit()
         }
-
-        // TODO: call logout endpoint - tell server to log out & forget token
     }
 
     private fun setPuckApi(

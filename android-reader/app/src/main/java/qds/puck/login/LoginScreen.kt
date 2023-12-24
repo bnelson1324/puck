@@ -2,6 +2,7 @@ package qds.puck.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -15,6 +16,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import qds.puck.R
@@ -40,11 +42,11 @@ fun LoginScreen(
     val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
 
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (!loginModel.isLoggingIn) {
-            Text("Login")
+            Text(text = "Login", modifier = Modifier.padding(6.dp))
             TextField(
                 value = serverAddress,
                 onValueChange = { serverAddress = it.trim() },
@@ -68,7 +70,8 @@ fun LoginScreen(
                     serverAddress = ""
                     password = ""
                     keyboardController?.hide()
-                }
+                },
+                modifier = Modifier.padding(6.dp)
             ) {
                 Text("Log In")
             }
@@ -77,12 +80,13 @@ fun LoginScreen(
             if (displayServerAddress == null) {
                 Text("Logging in...")
             } else {
-                Text("Currently logged in")
-                Text("Server Address: $displayServerAddress")
+                Text(text = "Currently logged in", modifier = Modifier.padding(2.dp))
+                Text(text = "Server Address: $displayServerAddress")
             }
 
             Button(
-                onClick = { loginModel.logout(ctx) }
+                onClick = { loginModel.logout(ctx) },
+                modifier = Modifier.padding(6.dp)
             ) {
                 Text("Log Out")
             }

@@ -32,12 +32,15 @@ fun createApi(
 }
 
 interface PuckApi {
-
     @FormUrlEncoded
     @POST("/login")
     suspend fun postLogin(
         @Field("password") password: String
     ): Response<String>
+
+    @DELETE("/login")
+    suspend fun logout(
+    ): Response<ResponseBody>
 
     @GET("/media")
     suspend fun getMediaItemList(): Response<List<MediaItem>>
@@ -46,5 +49,4 @@ interface PuckApi {
     suspend fun getMediaFile(
         @Path("id") id: Int,
     ): Response<ResponseBody>
-
 }

@@ -16,16 +16,17 @@ class MockPuckApi : PuckApi {
         }
     }
 
+    override suspend fun logout(): Response<Void> {
+        return Response.success(null)
+    }
+
     override suspend fun getMediaItemList(): Response<List<MediaItem>> {
         return Response.success(testMediaCollection)
     }
 
-    override suspend fun getMediaFileList(id: Int): Response<List<String>> {
-        return Response.success(testComicFileList)
-    }
-
-    override suspend fun getMediaFile(id: Int, file: String): Response<ResponseBody> {
-        val assetPath = Paths.get("test_comics", id.toString(), file)
+    override suspend fun getMediaFile(id: Int): Response<ResponseBody> {
+        val fileName = testMediaCollection.find { mediaItem -> mediaItem.id == id }!!.fileName
+        val assetPath = Paths.get("test_comics", fileName)
         testCtx.assets.open(assetPath.toString()).use {
             val responseBody = it.readBytes().toResponseBody()
             return Response.success(responseBody)

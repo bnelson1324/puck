@@ -40,7 +40,7 @@ interface PuckApi {
 
     @DELETE("/login")
     suspend fun logout(
-    ): Response<ResponseBody>
+    ): Response<Void>
 
     @GET("/media")
     suspend fun getMediaItemList(): Response<List<MediaItem>>

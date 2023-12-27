@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'qds.puck'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "qds.puck"

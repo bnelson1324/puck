@@ -22,3 +22,17 @@ cd server
 python build.py
 node build/src/app.js
 ```
+
+<hr>
+
+<h3>Screenshots</h3>
+
+<p>Configuration Client</p>
+
+![Configuration Client](docs/config-client-screenshot.png)
+
+<p>Android Reader</p>
+
+![Android Reader 1](docs/android-reader-screenshot-1.png)
+
+![Android Reader 2](docs/android-reader-screenshot-2.png)
